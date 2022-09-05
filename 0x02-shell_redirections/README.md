@@ -6,3 +6,4 @@ Tasks:
 3 - What about 2? (3-twofiles)
 4 - Last lines of a file (4-lastlines)
 5 - I'd prefer the first ones actually (5-firstlines)
+6 - Kine #2 (6-third_line)
