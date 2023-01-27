@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#example
+to_kill=$(pgrep -f 4-to_infinity_and_beyond)
+kill "$to_kill"
