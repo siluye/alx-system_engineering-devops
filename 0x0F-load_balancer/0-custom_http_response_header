@@ -24,16 +24,21 @@ touch /var/www/html/404.html
 # code to configure redirect for a single page(/redirect_me) and add header to display hostname
 # string_for_replacement="server_name _;\n\tadd_header X-Served-By \$hostname;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com/watch?v=Q51jCWzKVYU permanent;"
 # sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
-sudo sed -i "11i\\\tadd_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
-redirect="\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=Q51jCWzKVYU;\n\t}\n"
-sudo sed -i "37i\ $redirect" /etc/nginx/sites-available/default
+# sudo sed -i "11i\\\tadd_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+# redirect="\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=Q51jCWzKVYU;\n\t}\n"
+# sudo sed -i "37i\ $redirect" /etc/nginx/sites-available/default
 
 # code to create a webpage for 4040 and configure redirect
 # string_for_replacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
 # sudo sed -i "s/listen 80 default_server;/$string_for_replacement/" /etc/nginx/sites-enabled/default
-echo "Ceci n'est pas une page" |sudo tee /var/www/html/404.html
-err_page="\\\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}"
-sudo sed -i "27i $err_page" /etc/nginx/sites-available/default
+# echo "Ceci n'est pas une page" |sudo tee /var/www/html/404.html
+# err_page="\\\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}"
+# sudo sed -i "27i $err_page" /etc/nginx/sites-available/default
+
+new_string="server_name _;\n\trewrite ^\/redirect_me youtube.com/watch?v=Q51jCWzKVYU permanent;"
+other_string="\n\tadd_header X-Served-By \$hostname;"
+second_string="\n\terror_page 404 \/custom_404.html;\n\tlocation = \/custom_404.html {\n\t\troot \/usr\/share\/nginx\/html;\n\t\tinternal;\n\t}"
+sed -i "s/server_name _;/$new_string$other_string$second_string/" /etc/nginx/sites-enabled/default
 
 # restart the web server after updating the settings
 # sudo service nginx restart
