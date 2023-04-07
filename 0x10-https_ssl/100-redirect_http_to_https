@@ -40,12 +40,12 @@ frontend  ehoneah-frontend-http
         default_backend ehoneah-backend
 
 frontend ehoneah-frontend-https
-	bind *:443 ssl crt /etc/haproxy/certs/www.ehoneah.tech.pem
+	bind *:443 ssl crt /etc/haproxy/certs/www.seifeyeki.tech.pem
 	http-request set-header X-Forwarded-Proto https
 	http-request redirect scheme https code 301 unless { ssl_fc }
 	default_backend ehoneah-backend
 
 backend ehoneah-backend
         balance roundrobin
-        server 63210-web-01 100.25.19.204:80 check
-        server 63210-web-02 54.157.159.85:80 check
+        server 114929-web-01 34.203.77.62:80 check
+        server 114929-web-02 34.207.155.227:80 check
